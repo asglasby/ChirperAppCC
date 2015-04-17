@@ -72,7 +72,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Icon.png" />
     <Content Include="index.html" />
+    <Content Include="indexMain.html" />
+    <Content Include="index2.html" />
     <Content Include="main.js" />
+    <Content Include="mainFiddle.js" />
+    <Content Include="mainFiddle2.js" />
+    <Content Include="mainFiddle3.js" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

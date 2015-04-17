@@ -1,35 +1,40 @@
-﻿var firebaseUrl = "";
+﻿var myUrl = "https://glowing-fire-7170.firebaseio.com/chirper/.json";
+var rickyFirebaseUrl = "https://churperapprr.firebaseio.com/chirper/.json";
+var ericFirebaseUrl = "https://glaring-inferno-2578.firebaseio.com/project01/.json";
+
 myTweets = [];
 
-var PersonProfile = function(name,phone, email, firebaseUrl){
+var PersonProfile = function (name, phone, email, firebaseUrl) {
     this.name = name;
     this.phone = phone;
     this.email = email;
     this.firebaseUrl = firebaseUrl;
 }
 
-var MyFriends = function(friends, group){
+var MyFriends = function (friends, group) {
 
     this.friends = friends;
     this.group = group;
 }
 
-var Tweets = function(name, message, dateTimeStamp){
+var Tweets = function (name, message, timeStamp) {
     this.name = name;
     this.message = message;
-    this.dateTimeStamp = dateTimeStamp;
+    this.timeStamp = timeStamp;
 }
 
 
 var postTweets = function (tweet) {
     var request = new XMLHttpRequest();
-    request.open('POST', myURL, true)
+    request.open('POST', myUrl, true)
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
             var response = JSON.parse(this.response);
-            data.key = response.name;
+            tweet.key = response.name;
             myTweets.push(tweet);
-            displayMyTweets();            
+            displayMyTweets();
+            alert(this.response);
+
         }
         else {
             console.log(this.response);
@@ -61,12 +66,36 @@ var getMyTweets = function () {
 var addTweet = function () {
     var name = "Aisha" // this should probably be the firebaseURL
     var message = document.getElementById('tweet').value;
-    var timeStamp = "";
-    var myTweet = new myTweet(name, message, dateTimeStamp);
-    postTweet(myTweet);
+    var timeStamp = "will add later";
+    var myTweet = new Tweets(name, message, timeStamp);
+    postTweets(myTweet);
     document.getElementById('tweet').value = "";
 }
 
 var displayMyTweets = function () {
-   
+
 }
+
+var displayTimeline = function () {
+
+}
+
+var addFriend = function () {
+
+}
+
+var deleteFriend = function () {
+
+}
+
+var searchTweets = function () {
+
+}
+
+var updateProfile = function () {
+
+}
+
+
+getMyTweets();
+
