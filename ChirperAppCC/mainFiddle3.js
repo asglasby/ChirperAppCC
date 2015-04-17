@@ -1,7 +1,7 @@
-﻿var aishaUrl = "https://glowing-fire-7170.firebaseio.com/chirper/.json";
-var rickyFirebaseUrl = "https://churperapprr.firebaseio.com/chirper/.json";
-var myUrl = "https://glaring-inferno-2578.firebaseio.com/project01/.json";
-var markFirebaseUrl = "https://chrirprformark.firebaseio.com/.json";
+﻿var aishamyUrl = "https://glowing-fire-7170.firebaseio.com/chirper/.json";
+var rickyUrl = "https://churperapprr.firebaseio.com/chirper/.json";
+var ericmyUrl = "https://glaring-inferno-2578.firebaseio.com/project01/.json";
+var myUrl = "https://chrirprformark.firebaseio.com/.json";
 myTweets = [];
 
 var PersonProfile = function (name, phone, email, firebaseUrl) {
@@ -17,10 +17,10 @@ var MyFriends = function (friends, group) {
     this.group = group;
 }
 
-var Tweets = function (name, message, timeStamp) {
+var Tweets = function (name, message) {
     this.name = name;
     this.message = message;
-    this.timeStamp = timeStamp;
+    this.timeStamp = new Date();
 }
 
 
@@ -73,17 +73,17 @@ var addTweet = function () {
 }
 
 var displayMyTweets = function () {
-    //document.getElementById('DisplayMytweets').innerHTML = '';
-    //var elemString = '';
-    //for (var i = 0; i < myTweets.length; i++) {
-    //    elemString += '<tr>'
-    //    elemString += '<td>' + myTweets[i].name + '</td>'
-    //    elemString += '<td>' + myTweets[i].message + '</td>'
-    //    elemString += '<td>' + myTweets[i].timeStamp + '</td>'
-    //    elemString += '<td><button class="btn btn-danger" onclick="addTweets(' + i + ')">Add Tweets</button></td>'
-    //    elemString += '</tr>'
-    //}
-    //document.getElementById('DisplayMyTweets').innerHTML = elemString;
+    document.getElementById('DisplayMyTweets').innerHTML = '';
+    var elemString = '';
+    for (var i = 0; i < myTweets.length; i++) {
+        elemString += '<tr>'
+        elemString += '<td>' + myTweets[i].name + '</td>'
+        elemString += '<td>' + myTweets[i].message + '</td>'
+        elemString += '<td>' + myTweets[i].timeStamp + '</td>'
+        elemString += '<td><button class="btn btn-danger" onclick="addTweets(' + i + ')">Add Tweets</button></td>'
+        elemString += '</tr>'
+    }
+    document.getElementById('DisplayMyTweets').innerHTML = elemString;
 }
 
 
