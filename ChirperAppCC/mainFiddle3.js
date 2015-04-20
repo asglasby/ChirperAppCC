@@ -1,8 +1,10 @@
-﻿var aishamyUrl = "https://glowing-fire-7170.firebaseio.com/chirper/.json";
+﻿var myUrl = "https://glowing-fire-7170.firebaseio.com/chirper/.json";
 var rickyUrl = "https://churperapprr.firebaseio.com/chirper/.json";
 var ericmyUrl = "https://glaring-inferno-2578.firebaseio.com/project01/.json";
-var myUrl = "https://chrirprformark.firebaseio.com/.json";
+var markmyUrl = "https://chrirprformark.firebaseio.com/.json";
 myTweets = [];
+myFriends = [rickyUrl, ericmyUrl, markmyUrl]; // this will be an object 
+
 
 var PersonProfile = function (name, phone, email, firebaseUrl) {
     this.name = name;
@@ -11,11 +13,11 @@ var PersonProfile = function (name, phone, email, firebaseUrl) {
     this.firebaseUrl = firebaseUrl;
 }
 
-var MyFriends = function (friends, group) {
+//var MyFriends = function (friends, group) {
 
-    this.friends = friends;
-    this.group = group;
-}
+//    this.friends = friends;
+//    this.group = group;
+//}
 
 var Tweets = function (name, message) {
     this.name = name;
@@ -32,7 +34,9 @@ var postTweets = function (tweet) {
             var response = JSON.parse(this.response);
             tweet.key = response.name;
             myTweets.push(tweet);
-            displayMyTweets();
+            //displayMyTweets();
+            //diplayTimeline();
+            displayTweets();
             alert(this.response);
 
         }
@@ -42,7 +46,6 @@ var postTweets = function (tweet) {
     }
     request.send(JSON.stringify(tweet));
 }
-
 
 var getMyTweets = function () {
     var request = new XMLHttpRequest();
@@ -54,13 +57,39 @@ var getMyTweets = function () {
                 response[propName].key = propName;
                 myTweets.push(response[propName]);
             }
-            displayMyTweets();
+            displayTweets();
+            //displayMyTweets();
+            //displayTimeline();
         }
         else {
             console.error(this.response);
         }
     }
     request.send();
+}
+
+
+var getAllTweets = function () {
+    //getMyTweets();
+    for (var i = 0; i < myFriends.length; i++) {
+        var request = new XMLHttpRequest();
+        request.open('GET', myFriends[i], true);
+        request.onload = function () {
+            if (this.status >= 200 && this.status < 400) {
+                var response = JSON.parse(this.response);
+                for (var propName in response) {
+                    response[propName].key = propName;
+                    myTweets.push(response[propName]);
+                }
+                // displayTimeline();
+                displayTweets();
+            }
+            else {
+                console.error(this.response);
+            }
+        }
+        request.send();
+    }
 }
 
 var addTweet = function () {
@@ -76,19 +105,36 @@ var displayMyTweets = function () {
     document.getElementById('DisplayMyTweets').innerHTML = '';
     var elemString = '';
     for (var i = 0; i < myTweets.length; i++) {
-        elemString += '<tr>'
-        elemString += '<td>' + myTweets[i].name + '</td>'
-        elemString += '<td>' + myTweets[i].message + '</td>'
-        elemString += '<td>' + myTweets[i].timeStamp + '</td>'
-        elemString += '<td><button class="btn btn-danger" onclick="addTweets(' + i + ')">Add Tweets</button></td>'
-        elemString += '</tr>'
+        if(myTweets[i].name === "Aisha"){
+            elemString += '<tr>'
+            elemString += '<td>' + myTweets[i].name + '</td>'
+            elemString += '<td>' + myTweets[i].message + '</td>'
+            elemString += '<td>' + myTweets[i].timeStamp + '</td>'
+            elemString += '<td><button class="btn btn-danger" onclick="reTweet(' + i + ')">Re- Tweet</button></td>'
+            elemString += '</tr>'
+        }        
     }
     document.getElementById('DisplayMyTweets').innerHTML = elemString;
 }
 
+var displayTweets = function () {
+    displayTimeline();
+    displayMyTweets();
+}
+
 
 var displayTimeline = function () {
-
+    document.getElementById('DisplayAllTweets').innerHTML = '';
+    var elemString = '';
+    for (var i = 0; i < myTweets.length; i++) {        
+            elemString += '<tr>'
+            elemString += '<td>' + myTweets[i].name + '</td>'
+            elemString += '<td>' + myTweets[i].message + '</td>'
+            elemString += '<td>' + myTweets[i].timeStamp + '</td>'
+            elemString += '<td><button class="btn btn-danger" onclick="reTweets(' + i + ')">re-Tweet</button></td>'
+            elemString += '</tr>'        
+    }
+    document.getElementById('DisplayAllTweets').innerHTML = elemString;
 }
 
 var addFriend = function () {
@@ -117,11 +163,16 @@ var updateProfile = function () {
 
 }
 
-var getAllTweets = function () {
-    getMyTweets();
-    getEricTweets();
-    getRickyTweets();
-    getMarkTweets();
-    // this should probably be get Friends' tweets.... refactor later
+var reTweet = function () {
+    alert("this function is not working yet");
 }
+
+//var getAllTweets = function () {
+//    getMyTweets();
+//    getEricTweets();
+//    getRickyTweets();
+//    getMarkTweets();
+//    // this should probably be get Friends' tweets.... refactor later
+//}
 getMyTweets();
+getAllTweets();
