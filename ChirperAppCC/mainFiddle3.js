@@ -167,6 +167,15 @@ var reTweet = function () {
     alert("this function is not working yet");
 }
 
+var pollTweets = function () {
+    document.getElementById('DisplayMyTweets').innerHTML = '';
+    document.getElementById('DisplayAllTweets').innerHTML = '';
+    getMyTweets();
+    getAllTweets();
+}
+
+var interval = setInterval(pollTweets, 60000);
+
 //var getAllTweets = function () {
 //    getMyTweets();
 //    getEricTweets();
@@ -174,5 +183,7 @@ var reTweet = function () {
 //    getMarkTweets();
 //    // this should probably be get Friends' tweets.... refactor later
 //}
-getMyTweets();
-getAllTweets();
+//getMyTweets();
+//getAllTweets();
+
+pollTweets();
