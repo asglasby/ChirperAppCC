@@ -33,12 +33,8 @@ var postTweets = function (tweet) {
         if (this.status >= 200 && this.status < 400) {
             var response = JSON.parse(this.response);
             tweet.key = response.name;
-            myTweets.push(tweet);
-            //displayMyTweets();
-            //diplayTimeline();
+            myTweets.push(tweet);           
             displayTweets();
-            alert(this.response);
-
         }
         else {
             console.log(this.response);
@@ -47,19 +43,17 @@ var postTweets = function (tweet) {
     request.send(JSON.stringify(tweet));
 }
 
-var getMyTweets = function () {
+var getMyTweets = function () {    
     var request = new XMLHttpRequest();
     request.open('GET', myUrl, true);
     request.onload = function () {
         if (this.status >= 200 && this.status < 400) {
-            var response = JSON.parse(this.response);
+            var response = JSON.parse(this.response);           
             for (var propName in response) {
                 response[propName].key = propName;
                 myTweets.push(response[propName]);
             }
-            displayTweets();
-            //displayMyTweets();
-            //displayTimeline();
+            displayTweets();            
         }
         else {
             console.error(this.response);
@@ -69,20 +63,18 @@ var getMyTweets = function () {
 }
 
 
-var getAllTweets = function () {
-    //getMyTweets();
+var getAllTweets = function () {    
     for (var i = 0; i < myFriends.length; i++) {
         var request = new XMLHttpRequest();
         request.open('GET', myFriends[i], true);
         request.onload = function () {
             if (this.status >= 200 && this.status < 400) {
-                var response = JSON.parse(this.response);
+                var response = JSON.parse(this.response);                
                 for (var propName in response) {
                     response[propName].key = propName;
                     myTweets.push(response[propName]);
-                }
-                // displayTimeline();
-                displayTweets();
+                }                
+                displayTweets();              
             }
             else {
                 console.error(this.response);
@@ -95,7 +87,7 @@ var getAllTweets = function () {
 var addTweet = function () {
     var name = "Aisha" // this should probably be the firebaseURL
     var message = document.getElementById('tweet').value;
-    var timeStamp = "will add later";
+    //var timeStamp = "will add later";
     var myTweet = new Tweets(name, message, timeStamp);
     postTweets(myTweet);
     document.getElementById('tweet').value = "";
@@ -131,7 +123,7 @@ var displayTimeline = function () {
             elemString += '<td>' + myTweets[i].name + '</td>'
             elemString += '<td>' + myTweets[i].message + '</td>'
             elemString += '<td>' + myTweets[i].timeStamp + '</td>'
-            elemString += '<td><button class="btn btn-danger" onclick="reTweets(' + i + ')">re-Tweet</button></td>'
+            elemString += '<td><button class="btn btn-danger" onclick="reTweets(' + i + ')">Re-Tweet</button></td>'
             elemString += '</tr>'        
     }
     document.getElementById('DisplayAllTweets').innerHTML = elemString;
@@ -148,12 +140,11 @@ var deleteFriend = function (i) {
         if (this.status >= 200 && this.status < 400) {
             MyFriends.friends.splice(i, 1);
             PrintMyFriends();
-
         }
     }
     request.send();
 }
-//getMyFriends();
+
 
 var searchTweets = function () {
 
@@ -167,23 +158,23 @@ var reTweet = function () {
     alert("this function is not working yet");
 }
 
-var pollTweets = function () {
+var sortTweets = function () {
+    //myTweets.sort(function (b, a) {
+    //    b = b.timeStamp; a = a.timeStamp;
+    //    return b - a;
+    //})
+}
+
+var pollTweets = function () {  
     document.getElementById('DisplayMyTweets').innerHTML = '';
     document.getElementById('DisplayAllTweets').innerHTML = '';
     getMyTweets();
     getAllTweets();
+    myTweets = [];
 }
 
 var interval = setInterval(pollTweets, 60000);
 
-//var getAllTweets = function () {
-//    getMyTweets();
-//    getEricTweets();
-//    getRickyTweets();
-//    getMarkTweets();
-//    // this should probably be get Friends' tweets.... refactor later
-//}
-//getMyTweets();
-//getAllTweets();
 
 pollTweets();
+
