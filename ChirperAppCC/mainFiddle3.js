@@ -87,7 +87,7 @@ var getAllTweets = function () {
 var addTweet = function () {
     var name = "Aisha" // this should probably be the firebaseURL
     var message = document.getElementById('tweet').value;
-    //var timeStamp = "will add later";
+    var timeStamp = new Date();
     var myTweet = new Tweets(name, message, timeStamp);
     postTweets(myTweet);
     document.getElementById('tweet').value = "";
